@@ -17,6 +17,12 @@ import {
 import Page from 'Components/UI/Page';
 import Home from '../pages/Home';
 import Projects from '../pages/Projects';
+import Snippets from '../pages/Snippets';
+import Posts from '../pages/Posts';
+
+import RecoverPassword from '../pages/Auth/RecoverPassword';
+import SignUp from '../pages/Auth/SignUp';
+import Login from '../pages/Auth/Login';
 
 const PageWrapper = styled.div`
 
@@ -36,20 +42,17 @@ height: 100%;
 &.fade-enter-active {
   transition: opacity .3s linear, transform 0.3s linear;
   opacity: 1;
-  
 }
 
 &.fade-exit {
   transition: opacity .3s linear, transform 0.3s linear;
   opacity: 1;
-  
 }
 
 &.fade-exit-active {
   opacity: 0;
   transform: translateY(200px);
 }
-
 `;
 
 const App = ({ location }) => {
@@ -64,6 +67,12 @@ const App = ({ location }) => {
             <PageWrapper>
               <Route exact path="/" component={Home} />
               <Route exact path="/projects" component={Projects} />
+              <Route exact path="/posts" component={Posts} />
+              <Route exact path="/snippets" component={Snippets} />
+
+              <Route exact path="/forgot-password" component={RecoverPassword} />
+              <Route exact path="/sign-up" component={SignUp} />
+              <Route exact path="/login" component={Login} />
             </PageWrapper>
           </Switch>
         </CSSTransition>

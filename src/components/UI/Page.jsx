@@ -3,9 +3,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 import styled from 'styled-components';
 import Link from 'react-router-dom/Link';
+
+import BackgroundSVG from 'Assets/svg/background.svg';
 
 const Header = styled.nav`
     
@@ -19,14 +20,41 @@ const Header = styled.nav`
 
 
     display: grid;
-    grid-template-columns: 1fr 3fr;
+    grid-template-columns: repeat(3, auto);
     
+
+
+    .authentication {
+        justify-self: end;
+        padding: 0 30px;
+
+        p {
+            margin: 0;
+        }
+
+        a {
+            color: white;
+            text-decoration: none;
+            font-size: 12.5pt;
+            vertical-align: middle;
+            line-height: 100px;
+        }
+
+        .italic {
+            font-style: italic;
+            font-size: 9pt;
+            vertical-align: middle;
+            line-height: 100px;
+        }
+    }
 
     .logo {
         padding: 0 50px;
+        justify-self: start;
     }
 
     ul {
+        justify-self: start;
         margin: 0;
         padding: 0;
         list-style: none;
@@ -52,6 +80,8 @@ const Header = styled.nav`
 
 const Content = styled.div`
     position: relative;
+    background: url(${BackgroundSVG});
+    background-size: 33.333%;
 `;
 
 const Footer = styled.footer`
@@ -88,9 +118,14 @@ const Page = props => (
       <span className="logo">PolygonFox</span>
       <ul>
         <li><Link to="/">Home</Link></li>
+        <li><Link to="/posts">Posts</Link></li>
         <li><Link to="/projects">Projects</Link></li>
         <li><Link to="/snippets">Snippets</Link></li>
       </ul>
+
+      <div className="authentication">
+        <p><Link to="/login">Login</Link> <span className="italic">or</span> <Link to="/sign-up">Sign-up</Link></p>
+      </div>
     </Header>
     <Content>
       { props.children }

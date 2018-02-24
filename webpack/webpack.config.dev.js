@@ -20,6 +20,7 @@ module.exports = {
       Constants: path.resolve(__dirname, '../src/constants/'),
       Modules: path.resolve(__dirname, '../src/modules/'),
       Config: path.resolve(__dirname, '../src/config'),
+      Assets: path.resolve(__dirname, '../src/assets'),
     },
   },
 
@@ -39,8 +40,14 @@ module.exports = {
             babelrc: false,
           },
         }, 'eslint-loader'],
-
       },
+      {
+        test: /\.svg?$/,
+        exclude: '/node_modules',
+        loader: [{
+          loader: 'file-loader'
+        }]
+      }
     ],
   },
   devServer: {

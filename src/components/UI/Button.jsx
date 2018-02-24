@@ -16,7 +16,7 @@ const StyledButton = styled.button`
    
     box-sizing: border-box;
     background: white;
-    background-color: ${({ theme }) => theme.color_1.secondary};
+    background-color: ${({ theme }) => theme.colors.black};
     border-radius: 15px;
 `;
 

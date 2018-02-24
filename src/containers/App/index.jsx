@@ -1,57 +1,79 @@
 import React from 'react';
-import styled, { ThemeProvider } from 'styled-components';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import createSagaMiddleware from 'redux-saga';
+import PropTypes from 'prop-types';
 
-import rootReducer from 'Modules/rootReducer';
-import rootSaga from 'Modules/rootSaga';
-
+import { withRouter } from 'react-router';
+import styled from 'styled-components';
 import {
-  BrowserRouter as Router,
   Route,
-  Link,
+  Switch,
+  // Link,
 } from 'react-router-dom';
 
-import MainNavigation from 'Components/UI/Menus/MainNavigation';
-import Button from 'Components/UI/Button';
+// import MainNavigation from 'Components/UI/Menus/MainNavigation';
+// import Button from 'Components/UI/Button';
 
-import theme from 'Constants/theme';
+import Page from 'Components/UI/Page';
+import Home from '../pages/Home';
+import Projects from '../pages/Projects';
 
-import Basic from '../pages/Basic';
-import Basic2 from '../pages/Basic2';
-import Basic3 from '../pages/Basic3';
+const PageWrapper = styled.div`
 
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
 
-const StyledApp = styled.div`
+&.fade-appear,
+&.fade-enter {
+  opacity: 0;
+  transform: translateY(0);
+}
+
+&.fade-appear-active,
+&.fade-enter-active {
+  transition: opacity .3s linear, transform 0.3s linear;
+  opacity: 1;
+  
+}
+
+&.fade-exit {
+  transition: opacity .3s linear, transform 0.3s linear;
+  opacity: 1;
+  
+}
+
+&.fade-exit-active {
+  opacity: 0;
+  transform: translateY(200px);
+}
 
 `;
 
-// Saga
-const sagaMiddleware = createSagaMiddleware();
+const App = ({ location }) => {
+  const currentKey = location.pathname.split('/')[1] || '/';
+  const timeout = { enter: 300, exit: 300 };
 
-// Store
-const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
-
-sagaMiddleware.run(rootSaga);
-
-export default () =>
-  (
-    <Provider store={store}>
-      <Router>
-        <ThemeProvider theme={theme}>
-          <StyledApp>
-            <MainNavigation>
-              <Link to="/"><Button>Basic 1</Button></Link>
-              <Link to="/basic-2"><Button>Basic 2</Button></Link>
-              <Link to="/basic-3"><Button>Basic 3</Button></Link>
-            </MainNavigation>
-            <Route exact path="/" component={Basic} />
-            <Route exact path="/basic-2" component={Basic2} />
-            <Route exact path="/basic-3" component={Basic3} />
-          </StyledApp>
-        </ThemeProvider>
-      </Router>
-    </Provider>
+  return (
+    <Page>
+      <TransitionGroup component="main" className="page-main">
+        <CSSTransition key={currentKey} timeout={timeout} classNames="fade" appear>
+          <Switch location={location}>
+            <PageWrapper>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/projects" component={Projects} />
+            </PageWrapper>
+          </Switch>
+        </CSSTransition>
+      </TransitionGroup>
+    </Page>
   );
+};
+
+App.propTypes = {
+  location: PropTypes.objectOf(PropTypes.any).isRequired,
+};
+
+export default withRouter(App);

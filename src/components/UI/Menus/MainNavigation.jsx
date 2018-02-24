@@ -9,7 +9,7 @@ const StyledMainNavigation = styled.div`
     height: 100px;
     list-style: none;
     box-sizing: border-box;
-    background-color: ${({ theme }) => theme.color_1.primary};
+    background-color: ${({ theme }) => theme.colors.black.primary};
 `;
 
 const StyledMenuItem = styled.li`

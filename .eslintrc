@@ -1,0 +1,20 @@
+{
+    "parser": "babel-eslint",
+    "extends": "airbnb",
+    "plugins": [
+      "import"
+    ],
+    "rules": {
+      "jsx-a11y/anchor-is-valid": [ "error", {
+        "specialLink": [ "hrefLeft", "hrefRight" ],
+        "aspects": [ "noHref", "invalidHref", "preferButton" ]
+      }]
+    },
+    "settings": {
+      "import/resolver": {
+        "webpack": {
+          "config": "./webpack/webpack.config.dev.js"
+        }
+      }
+    }
+  }
